@@ -13,12 +13,12 @@ function checkGroupList() {
 	if (checkTimes > 0) {
 		setTimeout(function() {
 			if (getGroupListEl().length) {
-				main();
+				addAttention();
 			} else {
 				checkTimes--;
 				checkGroupList();
 			}
-		}, 2000);
+		}, 1000);
 	}
 }
 

@@ -1,7 +1,7 @@
 {
 	"name": "Weibo Attention",
-	"description": "为新版新浪微博添加相互关注功能"
-	"version": "1.0",
+	"description": "为新版新浪微博添加相互关注功能",
+	"version": "1.0.0",
 	"manifest_version": 2,
 	"content_scripts": [
 	    {
