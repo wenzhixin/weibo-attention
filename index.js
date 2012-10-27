@@ -23,8 +23,10 @@ function checkGroupList() {
 }
 
 function addAttention() {
+	var url = $('div[node-type="home"]>a').attr("href");
+	url += url.indexOf("?") != -1 ? "&attention=1" : "?attention=1";
 	var html = '<div class="lev">' +
-			'<a href="/u/2292826740?attention=1" class="S_txt1" node-type="item">' + 
+			'<a href="' + url + '" class="S_txt1" node-type="item">' + 
 				'<i class="W_ico20 ico_closefriend"></i>相互关注' +
 			'</a>' +
 		'</div>';
