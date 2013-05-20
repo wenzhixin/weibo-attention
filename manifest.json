@@ -1,8 +1,12 @@
 {
-	"name": "Weibo Attention",
+	"name": "微博相互关注",
 	"description": "为新版新浪微博添加相互关注功能",
-	"version": "1.0.1",
+	"version": "1.0.6",
 	"manifest_version": 2,
+	"update_url": "http://clients2.google.com/service/update2/crx",
+	"icons": {
+		"128": "icon.png"
+	},
 	"content_scripts": [
 	    {
 	      "matches": ["http://*.weibo.com/*"],
