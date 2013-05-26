@@ -21,3 +21,5 @@ ___
 博客：http://wenzhixin.net.cn
 
 邮箱：wenzhixin2010@gmail.com
+
+安装：[微博相互关注](https://chrome.google.com/webstore/detail/%E5%BE%AE%E5%8D%9A%E7%9B%B8%E4%BA%92%E5%85%B3%E6%B3%A8/hfhnidmhfikpicbkkkielijapaebopap)
