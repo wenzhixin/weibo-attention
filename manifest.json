@@ -7,10 +7,16 @@
 	"icons": {
 		"128": "icon.png"
 	},
+    "browser_action": {
+        "all_frames": true,
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
 	"content_scripts": [
 	    {
 	      "matches": ["http://*.weibo.com/*"],
-	      "js": ["jquery.min.js", "store.js", "index.js"]
+	      "js": ["js/jquery.min.js", "js/store.js", "js/index.js"]
 	    }
-	]
+	],
+	"permissions": ["http://*.weibo.com/*"]
 }
