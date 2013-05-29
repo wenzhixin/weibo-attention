@@ -58,8 +58,9 @@ $(function() {
 	}
 	
 	function imageZoomin() {
+		var top = $(this).parents('.WB_feed_type').offset().top;
 		$(this).parents('[node-type="feed_list_media_disp"]').hide().prev().show();
-		$(document).scrollTop($(this).parents('.WB_feed_type').offset().top);
+		$(document).scrollTop() > top && $(document).scrollTop(top);
 	}
 	
 	main();
