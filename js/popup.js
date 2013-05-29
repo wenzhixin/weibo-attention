@@ -10,6 +10,8 @@ $(function() {
 	
 	function main() {
 		getContent();
+		$(document).on('click', 'div.bigcursor', imageZoomout);
+		$(document).on('click', 'div.smallcursor', imageZoomin);
 		$(window).scroll(function() {
 			$(document).scrollTop() + $(window).height() === $(document).height() && getContent();
 		});
@@ -47,6 +49,17 @@ $(function() {
 			mid = $content.find('div.WB_feed_type:last').attr('mid');
 			page++;
 		});
+	}
+	
+	function imageZoomout() {
+		var src = $(this).find('img').attr('src').replace('thumbnail', 'bmiddle');
+		$(this).parents('[node-type="feed_list_media_prev"]').hide()
+			.next().html('<div class="smallcursor"><img src="' + src + '" /></div>').show();
+	}
+	
+	function imageZoomin() {
+		$(this).parents('[node-type="feed_list_media_disp"]').hide().prev().show();
+		$(document).scrollTop($(this).parents('.WB_feed_type').offset().top);
 	}
 	
 	main();
