@@ -4,7 +4,6 @@
 
 (function(window) {
 	var ATTENTION_UIDS = 'weibo-attention-uids',
-		ATTENTION_AID = 'weibo-attention-aid',
 		UPDATE_TIME = 'weibo-update-time';
 	
 	function Store() {
@@ -25,17 +24,6 @@
 			localStorage[ATTENTION_UIDS] = JSON.stringify(uids);
 		},
 		
-		getAid: function() {
-			if (!localStorage[ATTENTION_AID]) {
-				return null;
-			}
-			return JSON.parse(localStorage[ATTENTION_AID]);
-		},
-		
-		setAid: function(aid) {
-			localStorage[ATTENTION_AID] = JSON.stringify(aid);
-		},
-		
 		clearUids: function() {
 			delete localStorage[ATTENTION_UIDS];
 		},
@@ -49,6 +37,10 @@
 		
 		setUpdateTime: function(date) {
 			localStorage[UPDATE_TIME] = JSON.stringify(date);
+		},
+		
+		clearUpdateTime: function() {
+			delete localStorage[UPDATE_TIME];
 		}
 	};
 	

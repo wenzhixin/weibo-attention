@@ -23,7 +23,8 @@
 		$.get(LIST_GROUP, function(result) {
 			if (!result || result.code !== '100000') {
 				//退出登录清空 localStorage，防止不同用户冲突
-				delete store.clearUids();
+				store.clearUids();
+				store.clearUpdateTime();
 				return;
 			}
 			if (!checkUpdateTime()) {
@@ -169,7 +170,7 @@
 		$.each(data, function(i, item) {
 			if (item.gname === ATTENTION_NAME) {
 				id = item.gid;
-				return;
+				return false;
 			}
 		});
 		return id;

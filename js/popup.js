@@ -3,13 +3,20 @@
  */
 
 $(function() {
-	var URL = 'http://www.weibo.com/aj/mblog/fsearch?',
+	var SITE_URL = 'http://www.weibo.com',
+		LIST_GROUP = '/aj/f/group/list',
+		LIST_URL = '/aj/mblog/fsearch?',
+		
+		ATTENTION_NAME = '相互关注',
+		
 		$content = $('#content'),
+		gid = 0,
+		store = new Store(),
 		page = 0,
 		mid;
 	
 	function main() {
-		getContent();
+		getGid();
 		$(document).on('click', 'div.bigcursor', imageZoomout);
 		$(document).on('click', 'div.smallcursor', imageZoomin);
 		$(window).scroll(function() {
@@ -17,11 +24,31 @@ $(function() {
 		});
 	}
 	
+	function getGid() {
+		$.get(SITE_URL + LIST_GROUP, function(result) {
+			if (!result || result.code !== '100000') {
+				showLogin();
+				return;
+			}
+			$.each(result.data, function(i, item) {
+				if (item.gname === ATTENTION_NAME) {
+					gid = item.gid;
+					return false;
+				}
+			});
+			if (!gid) {
+				showLogin();
+				return;
+			}
+			getContent();
+		});
+	}
+	
 	function getContent() {
 		var p1 = ~~(page / 3) + 1,
 			p2 = page % 3,
 			params = {
-				gid: '3582362577621528',
+				gid: gid,
 				page: p1,
 				pre_page: p1 - 1,
 				count: 15, 
@@ -31,9 +58,9 @@ $(function() {
 			params.pre_page = p1;
 			params.pagebar = p2 - 1;
 		}
-		$.get(URL + $.param(params), function(result) {
+		$.get(SITE_URL + LIST_URL + $.param(params), function(result) {
 			if (!result || result.code !== '100000') {
-				$content.html('请先登录！');
+				showLogin();
 				return;
 			}
 			$data = $(result.data);
@@ -45,10 +72,15 @@ $(function() {
 			});
 			$content.find('.W_loading').remove();
 			$content.append($data);
+			$content.find('.W_loading span').append('<img src="images/loading.gif" />');
 			$content.find('.W_tips, .W_pages').remove();
 			mid = $content.find('div.WB_feed_type:last').attr('mid');
 			page++;
 		});
+	}
+	
+	function showLogin() {
+		$content.find('.W_loading span').html('请先<a href="' + SITE_URL + '" target="_blank">登录</a>新浪微博！');
 	}
 	
 	function imageZoomout() {
