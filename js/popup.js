@@ -17,8 +17,9 @@ $(function() {
 	
 	function main() {
 		getGid();
-		$(document).on('click', 'div.bigcursor', imageZoomout);
+		$(document).on('click', '[action-type="feed_list_media_img"], [action-type="fl_pics"]', imageZoomout);
 		$(document).on('click', 'div.smallcursor', imageZoomin);
+		$(document).on('click', '[action-type="feed_list_media_video"], [action-type="feed_list_third_rend"]', linkClick);
 		$(window).scroll(function() {
 			$(document).scrollTop() + $(window).height() === $(document).height() && getContent();
 		});
@@ -67,9 +68,9 @@ $(function() {
 			$data.find('a').each(function() {
 				var href = $(this).attr('href');
 				if (href.substring(0, 1) === '/') {
-					$(this).attr('href', 'http://weibo.com' + href).attr('target', '_blank');
+					$(this).attr('href', 'http://weibo.com' + href);
 				}
-			});
+			}).attr('target', '_blank');
 			$content.find('.W_loading').remove();
 			$content.append($data);
 			$content.find('.W_loading span').append('<img src="images/loading.gif" />');
@@ -84,7 +85,9 @@ $(function() {
 	}
 	
 	function imageZoomout() {
-		var src = $(this).find('img').attr('src').replace('thumbnail', 'bmiddle');
+		var src = $(this).parent().find('img').attr('src');
+		src = src.replace('thumbnail', 'bmiddle');
+		src = src.replace('square', 'bmiddle');
 		$(this).parents('[node-type="feed_list_media_prev"]').hide()
 			.next().html('<div class="smallcursor"><img src="' + src + '" /></div>').show();
 	}
@@ -95,5 +98,22 @@ $(function() {
 		$(document).scrollTop() > top && $(document).scrollTop(top);
 	}
 	
+	function linkClick() {
+		window.open(Util.getQuery($(this).attr('action-data')).short_url);
+	}
+	
 	main();
 });
+
+(function(window) {
+	window.Util = {
+		getQuery: function(data) {
+			var query = {};
+			$.each(data.split('&'), function(i, item) {
+				var arr = item.split('=');
+				query[arr[0]] = arr[1];
+			});
+			return query;
+		}
+	};
+})(window);
