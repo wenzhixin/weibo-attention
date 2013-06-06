@@ -3,7 +3,8 @@
  */
 
 (function(window) {
-	var ATTENTION_UIDS = 'weibo-attention-uids',
+	var ATTENTION_TIME = 'weibo-attention-time',
+		ATTENTION_UIDS = 'weibo-attention-uids',
 		UPDATE_TIME = 'weibo-update-time';
 	
 	function Store() {
@@ -12,6 +13,17 @@
 	
 	Store.prototype = {
 		constructor: Store,
+		
+		getTime: function() {
+			if (!localStorage[ATTENTION_TIME]) {
+				return 0;
+			}
+			return JSON.parse(localStorage[ATTENTION_TIME]);
+		},
+		
+		setTime: function(time) {
+			localStorage[ATTENTION_TIME] = JSON.stringify(time);
+		},
 		
 		getUids: function() {
 			if (!localStorage[ATTENTION_UIDS]) {

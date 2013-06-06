@@ -93,6 +93,10 @@ $(function() {
 			Util.handleInlineEvent($data.find('a'));
 			$content.find(DOM_LOADING).remove();
 			$content.append($data);
+			if (page === 0) {//first open
+				store.setTime(+$content.find('.WB_feed_type:eq(0) [node-type="feed_list_item_date"]').attr('date'));
+				chrome.browserAction.setBadgeText({text: ''});
+			}
 			$content.find(DOM_ITEM_TIPS + ',' + DOM_ITEM_PAGES).remove();
 			$('[action-type="feed_list_like"], [action-type="feed_list_forward"], [action-type="feed_list_favorite"]')
 				.attr('href', $content.find('a[node-type="feed_list_item_date"]').attr('href'));
@@ -160,19 +164,6 @@ $(function() {
 			$comment.find('.tab_b S_txt3 S_line1').remove();
 			Util.handleInlineEvent($comment.find('a'));
 			$comment.find('[action-type="delete"], [action-type="reply"]').attr('href', href);
-		});
-	}
-	
-	function deleteComment() {
-		e.preventDefault();
-		var mid = $(this).parents(DOM_ITEM).attr('mid');
-		$.post(SITE_URL + COMMENT_DELETE_URL, $.param({
-			act: 'delete',
-			mid: mid,
-			cid: '3586201615781556',
-			uid: uid
-		}), function(result) {
-			
 		});
 	}
 	
