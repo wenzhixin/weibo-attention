@@ -45,7 +45,8 @@
 				}
 				var unreadCount = 0;
 				$('<div>' + result.data + '</div>').find('.WB_feed_type').each(function() {
-					var date = +$(this).find('[node-type="feed_list_item_date"]').attr('date');
+					var date = +$(this).find('[node-type="feed_list_funcLink"] ' + 
+						'[node-type="feed_list_item_date"]').attr('date');
 					if (date && date > time) {
 						unreadCount++;
 					}

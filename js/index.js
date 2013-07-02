@@ -113,7 +113,7 @@
 				updateGroup();
 				removeGroup();
 			}
-		})
+		});
 	}
 	
 	//检查相互关注的列表是否改变

@@ -34,7 +34,9 @@ $(function() {
 		$(document).on('click', DOM_VIDEO + ',' + DOM_THIRD_REND, linkClick);
 		$(document).on('click', DOM_COMMENT, commentClick);
 		$(window).scroll(function() {
-			$(document).scrollTop() + $(window).height() === $(document).height() && getContent();
+			if ($(document).scrollTop() + $(window).height() === $(document).height()) {
+				getContent();
+			}
 		});
 	}
 	
@@ -47,7 +49,7 @@ $(function() {
 				return;
 			}
 			getGid();
-		})
+		});
 	}
 	
 	function getGid() {
@@ -94,7 +96,8 @@ $(function() {
 			$content.find(DOM_LOADING).remove();
 			$content.append($data);
 			if (page === 0) {//first open
-				store.setTime(+$content.find('.WB_feed_type:eq(0) [node-type="feed_list_item_date"]').attr('date'));
+				store.setTime(+$content.find('.WB_feed_type:eq(0) [node-type="feed_list_funcLink"] ' +
+					'[node-type="feed_list_item_date"]').attr('date'));
 				chrome.browserAction.setBadgeText({text: ''});
 			}
 			$content.find(DOM_ITEM_TIPS + ',' + DOM_ITEM_PAGES).remove();
@@ -120,7 +123,9 @@ $(function() {
 	function imageZoomin() {
 		var top = $(this).parents(DOM_ITEM).offset().top;
 		$(this).parents('[node-type="feed_list_media_disp"]').hide().prev().show();
-		$(document).scrollTop() > top && $(document).scrollTop(top);
+		if ($(document).scrollTop() > top) {
+			$(document).scrollTop(top);
+		}
 	}
 	
 	function linkClick() {
